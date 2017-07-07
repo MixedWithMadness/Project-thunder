@@ -10,7 +10,7 @@ namespace PQtest2
     {
         static void Main(string[] args)
         {
-            
+
             ulong numbers = new ulong();
             int index = new int();
             Guid guide = new Guid();
@@ -55,13 +55,13 @@ namespace PQtest2
                                 Console.WriteLine(guide + " | " + name + " | " + number1 + " | " + number2 + " | " + number3 + " | " + number4);
                                 Console.WriteLine(pqdif.RecordGetInfo(5, ref guide, ref name, ref number1, ref number2, ref number3, ref number4));
                                 Console.WriteLine(guide + " | " + name + " | " + number1 + " | " + number2 + " | " + number3 + " | " + number4);
-                                
+
                             }
                             else
                             {
                                 Console.WriteLine("Couldnt open.");
                             }
-                            
+
                             if (pqdif.Close()) { Console.WriteLine("true"); }
                             break;
 
@@ -75,7 +75,7 @@ namespace PQtest2
                                 Console.WriteLine(guide + " | " + name + " | " + number1 + " | " + number2 + " | " + number3 + " | " + number4);
                                 Console.WriteLine(pqdif.RecordGetInfo(5, ref guide, ref name, ref number1, ref number2, ref number3, ref number4));
                                 Console.WriteLine(guide + " | " + name + " | " + number1 + " | " + number2 + " | " + number3 + " | " + number4);
-                                
+
 
                             }
                             else
@@ -90,7 +90,7 @@ namespace PQtest2
                             if (pqdif.New()) { Console.WriteLine("New: Success"); } else { Console.WriteLine("new: fail"); }
 
                             pqdif.FlatFileName = "20021014-093938.pqd"; //20021017-093317.pqd
-                             
+
                             if (pqdif.Read())
                             {
                                 Console.WriteLine("Read: success");
@@ -102,63 +102,52 @@ namespace PQtest2
                                 {
                                     Console.WriteLine("Request data source: fail");
                                 }
-
-                                Console.WriteLine(numbers.ToString());
-                                if (pqdif.RecordRequestDataSource(1, ref numbers))
-                                {
-                                    Console.WriteLine("Request data source: success");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Request data source: fail");
-                                }
-
-                                Console.WriteLine(numbers.ToString());
-                                if (pqdif.RecordRequestDataSource(1, ref numbers))
-                                {
-                                    Console.WriteLine("Request data source: success");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Request data source: fail");
-                                }
-
-                                Console.WriteLine(numbers.ToString());
-                                if (pqdif.RecordRequestDataSource(1, ref numbers))
-                                {
-                                    Console.WriteLine("Request data source: success");
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Request data source: fail");
-                                }
-
-                                Console.WriteLine(numbers.ToString());
                             }
                             else
                             {
                                 Console.WriteLine("Read: fail");
                             }
 
-                            if(pqdif.Close()) { Console.WriteLine("Read: success"); } else { Console.WriteLine("Read: Fail"); }
+                            if (pqdif.Close()) { Console.WriteLine("Read: success"); } else { Console.WriteLine("Read: Fail"); }
                             break;
 
                         case 4:
 
-                                if (pqdif.New()) { Console.WriteLine("New: Success"); } else { Console.WriteLine("new: fail"); }
+                            if (pqdif.New()) { Console.WriteLine("New: Success"); } else { Console.WriteLine("new: fail"); }
 
-                                pqdif.FlatFileName = "20021014-093938.pqd"; //20021017-093317.pqd
-                                
-                                if (pqdif.Read())
-                                {
+                            pqdif.FlatFileName = "20021014-093938.pqd"; //20021017-093317.pqd
+
+                            if (pqdif.Read())
+                            {
                                 Console.WriteLine("Read: success");
                             }
                             else
                             {
                                 Console.WriteLine("Read: Fail");
                             }
+                            if (pqdif.RecordRequestObservation(44, ref numbers))
+                            {
+                                double num1 = 0;
+                                string namn = "";
+                                int num2 = 0;
 
-                                break;
+                                Console.WriteLine("Request obs: success");
+                                Console.WriteLine(numbers);
+                                if (pqdif.ObservationGetInfo(numbers, ref num1, ref namn, ref num2)) { Console.WriteLine("Obs Get info: success"); }
+                                else
+                                {
+                                    Console.WriteLine("Request obs: Fail");
+                                }
+                                Console.WriteLine(namn + " | " + num1 + " | " + num2);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Request obs: fail");
+                            }
+
+                            if (pqdif.Close()) { Console.WriteLine("Read: success"); } else { Console.WriteLine("Read: Fail"); }
+
+                            break;
 
                         case 9:
                             go = false;
@@ -166,7 +155,7 @@ namespace PQtest2
                     }
                 }
             }
-            
+
 
 
             //pqdif.RecordGetCollection(11,ref numbers);
